@@ -15,18 +15,7 @@ from there.
 
 Also, after testing this code out on different formulas I found that it tends to return
 a low value most of the time (between 0 and 10).. This might not create very colourful
-pictures. So I had an idea to alter the result so it always returns a value between 0 and 1,
-and then that can be used to create a 0 - 255 value.. (NOTE I HAVENT IMPLEMENTED THIS) e.g.
-
-	(int)((colour % 1) * 255)) yields:
-	
-	Red : 0.8621947437033233    -> 219    
-	Green : 0.23129639403611665 -> 58
-	Blue : 1.0348983055325582   -> 8
-
-Let me know what you think..
-
-I hope I haven't left anything out.
+pictures. 
 
 VERSION 1.1 CHANGELOG - 23 October 2016
 ---------------------------------------
@@ -34,6 +23,8 @@ VERSION 1.1 CHANGELOG - 23 October 2016
  - Changed Parser to implement Sample Formula Generator created by Dorothea Baker.
  - Changed Code to allow for accepting strings of different spacing.
  - Changed Code to match arithmetic formatting changes in other modules.
+ - Changed Parser PixelNode to accept Integers as per Callum's request, although the code
+   still returns Doubles (due to returning numbers between 0 and 1)
 
 HOW TO USE - ARITHMETIC PARSER
 ------------------------------
@@ -58,6 +49,14 @@ please use this function:
 	
 This will allow for easy bug checking..
 
+--
+(VERSION 1.1)
+
+The default value for the random number generator is 0 to 255, but the maximum can be changed
+by using the following function:
+
+	ParserInterface.setRandMax(Integer newMaximum)
+	
 --
 (VERSION 1.1)
 If you wish to give the parser a string with different spacing than the default then please
@@ -101,8 +100,6 @@ the following functions:
 	ArithmeticNode.blueOperation(xPixel, yPixel) - carries out the contained arithmetic on either
 		the red, green or blue values of the passed X and Y objects. Returns a double value
 		containing colour data.
-		
-The colour values used in this code range from 0 to 255.
 
 HOW TO USE - PIXEL NODE
 -----------------------
@@ -112,39 +109,58 @@ pixel node use the following constructor:
 
 	PixelNode node = new PixelNode(redValue, greenValue, blueValue)
 	
-The pixel node automatically changes values below 0 to their positive counterpart, and anything
-over 255 to 255.. This ensures no out of control errors.
+(Version 1.1)
+PixelNode now accepts Integers, as well as Double values.
+	
+The pixelnode automatically changes any values of 0 to 1, this stops errors from occurring. No
+longer changes negative values to their positive values.
 
 STRING FORMAT
 -------------
 
-The string format in this code follows a simple convention, there is 1 space between each part 
-of the string. The first argument is not contained in brackets. e.g.
+The string format in this code follows the below convention, there are no spaces between brackets 
+and symbols. Although this can be changed, please see STRING SPACING section. e.g.
 
-	plus ( mod ( sin x ) ( minus pi y ) )
+	(plus (mod (sin x) (minus pi y)))
 	
 The string can be of any size. And can consist of the following.
 
-	1 VARIABLE ARGUMENTS eg ( sqrt x )
+	1 VARIABLE ARGUMENTS eg (sqrt x)
 		sqrt - square root
-		square - to the power of 2
+		sqr - to the power of 2
 		cube - to the power of 3
+		cbrt - cube root
 		sin - sine
 		cos - cosine
 		tan - tangent
 		log - logarithm
 		
-	2 VARIABLE ARGUMENTS eg ( plus x y )
-		plus - addition
-		minus - subtraction
+	2 VARIABLE ARGUMENTS eg (plus x y)
+		add - addition
+		sub - subtraction
 		times - multiplication
 		div - division
 		mod - modulus
 		
-	POSSIBLE VARIABLES ( minus pi rand ) or ( mod x y )
+	POSSIBLE VARIABLES (minus pi rand) or (mod x y)
 		x - uses the supplied xPixel object
 		y - uses the supplied yPixel object
-		rand - creates a PixelNode object full of random (0 - 255) numbers
+		rand - creates a PixelNode object full of random (0 - 255) numbers (255 default can be changed)
 		pi - creates a PixelNode object containing pi for RGB
+		
+STRING SPACING
+--------------
 
-The convention of the previous C++ imagene formulas was used.
+The string spacing format in this code can be of a few different varieties. The DEFAULT format is
+as follows
+
+	(tan (add (cos y) (sqr pi)))
+	
+To change the string spacing format in the parser, use the setSpacing(STRING_SPACING) function.
+
+STRING_SPACING is an enum with 4 different values:
+
+	STRING_SPACING.NONE			- (tan (add (cos y) (sqr pi))) -- CURRENT DEFAULT
+	STRING_SPACING.OPEN			- ( tan ( add ( cos y) ( sqr pi))) -- Open brackets have spaces after
+	STRING_SPACING.CLOSE		- (tan (add (cos y ) (sqr pi ) ) ) -- Close brackets have spaces before
+	STRING_SPACING.OPEN_CLOSE	- ( tan ( add ( cos y ) ( sqr pi ) ) ) - Original string spacing

@@ -116,9 +116,9 @@ public class TestDriver {
 		final int populationSize = 4;
 		//final int parent1Index = 2;
 		//final int parent2Index = 3;
-		final double xRed = 50, xBlue = 100, xGreen = 155;
-		final double yRed = 25, yBlue = 60, yGreen = 255;
-		
+		final int xRed = 100, xBlue = 200, xGreen = 50;
+		final int yRed = 79, yBlue = 36, yGreen = 178;
+				
 		SampleFormulaGenerator gen = new SampleFormulaGenerator();		
 
 		// System.out.println(gen.getPrintableInfo(populationSize, parent1Index, parent2Index));

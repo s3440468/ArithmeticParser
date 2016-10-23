@@ -28,7 +28,7 @@ public class ParserInterface {
 	// Final variable used in following arithmetic.
 	private final double PI = 3.14159;
 	private final int RAND_MIN = 0;
-	private final int RAND_MAX = 255;
+	private int RAND_MAX = 255;
 	
 	// Boolean value that decides whether testing code should be
 	// allowed to be displayed while the code is being run.
@@ -102,6 +102,11 @@ public class ParserInterface {
 	// test text will be displayed as code is run.
 	public void setTesting(boolean isTesting) {
 		this.CURRENTLY_TESTING = isTesting;
+	}
+	
+	// Included new option to change random max value to user defined.
+	public void setRandMax(int newMax) {
+		this.RAND_MAX = newMax;
 	}
 	
 	// The main part of this code. Takes a string as input and returns

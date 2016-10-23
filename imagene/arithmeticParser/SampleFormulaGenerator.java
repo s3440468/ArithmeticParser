@@ -35,18 +35,18 @@ import java.util.*;
 public class SampleFormulaGenerator {
 
     private String[] sampleFormulas = {
-        "(sqrt (add (cube (add (cos pi) (sqrt y))) (cbrt (sqr (sin pi)))))",
-        "(sqrt (sqr (cbrt (add (sqr pi) (sqrt y)))))",
-        "(add (add (sqrt (sqrt y)) (tan (cube x))) (cos (tan (cbrt x))))",
-        "(sqr (cbrt (cbrt (sin (add y x)))))",
+        "(sqrt (add (cube (add (cos rand) (sqrt y))) (cbrt (sqr (sin pi)))))",
+        "(sqrt (sqr (cbrt (add (sqr rand) (sqrt y)))))",
+        "(add (add (sqrt (sqrt y)) (tan (cube rand))) (cos (tan (cbrt x))))",
+        "(sqr (cbrt (cbrt (sin (add rand x)))))",
         "(cos (cbrt (cbrt (sin (cbrt y)))))",
         "(tan (add (cos y) (sqr pi)))",
-        "(add (sqr (cube (tan pi))) (tan (tan (cube x))))",
-        "(add (tan x) (add (cbrt pi) (cos pi)))",
-        "(cube (sqr (cos (cube (cos x)))))",
+        "(add (sqr (cube (tan pi))) (tan (tan (cube rand))))",
+        "(add (tan x) (add (cbrt rand) (cos pi)))",
+        "(cube (sqr (cos (cube (cos rand)))))",
         "(cube (cos (tan y)))",
-        "sin (add (sqr (sqr (sqr pi))) (sin (sqr (sqr y)))))",
-        "(add (tan (sqr (cbrt x))) (tan (add (add pi x) (cos x))))"
+        "sin (add (sqr (sqr (sqr rand))) (sin (sqr (sqr y)))))",
+        "(add (tan (sqr (cbrt x))) (tan (add (add rand x) (cos x))))"
     };
 
     // For the initial generation, we don't provide any parents.
