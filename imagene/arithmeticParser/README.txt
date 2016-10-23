@@ -25,6 +25,7 @@ VERSION 1.1 CHANGELOG - 23 October 2016
  - Changed Code to match arithmetic formatting changes in other modules.
  - Changed Parser PixelNode to accept Integers as per Callum's request, although the code
    still returns Doubles (due to returning numbers between 0 and 1)
+ - Changed code to allow the random number maximum to be changed.
 
 HOW TO USE - ARITHMETIC PARSER
 ------------------------------
