@@ -161,7 +161,7 @@ To change the string spacing format in the parser, use the setSpacing(STRING_SPA
 
 STRING_SPACING is an enum with 4 different values:
 
-	STRING_SPACING.NONE			- (tan (add (cos y) (sqr pi))) -- CURRENT DEFAULT
-	STRING_SPACING.OPEN			- ( tan ( add ( cos y) ( sqr pi))) -- Open brackets have spaces after
+	STRING_SPACING.NONE		- (tan (add (cos y) (sqr pi))) -- CURRENT DEFAULT
+	STRING_SPACING.OPEN		- ( tan ( add ( cos y) ( sqr pi))) -- Open brackets have spaces after
 	STRING_SPACING.CLOSE		- (tan (add (cos y ) (sqr pi ) ) ) -- Close brackets have spaces before
 	STRING_SPACING.OPEN_CLOSE	- ( tan ( add ( cos y ) ( sqr pi ) ) ) - Original string spacing
