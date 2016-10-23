@@ -193,8 +193,7 @@ public class ArithmeticNode extends ParserNode {
 		// Test code, which shows the red green and blue values after
 		// having the arithmetic operation carried out on them.
 		if (this.CURRENTLY_TESTING == true) {
-			System.out.println("NOTE: These values will be rounded into " +
-					"numbers between 0 and 255)");
+			System.out.println("Values before being normalized by PixelNode");
 			System.out.println("New value for red: " + newRed);
 			System.out.println("New value for green: " + newGreen);
 			System.out.println("New value for blue: " + newBlue);
