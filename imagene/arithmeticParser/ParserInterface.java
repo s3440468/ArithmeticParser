@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser        *
+ * Arithmetic Parser v1.1   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
@@ -19,6 +19,10 @@ import java.util.Random;
 // The getArithmetic() function is the meat and bones of this Parser, and when supplied
 // with a string, will check it and create a tree of Arithmetic Nodes, that will
 // contain IArtihmetic objects that can operated on Pixel RGB values.
+//
+// (Version 1.1)
+// - Code changed to allow for different spacing in strings.
+// - New arithmetic options added.
 public class ParserInterface {
 	
 	// Final variable used in following arithmetic.
@@ -30,11 +34,29 @@ public class ParserInterface {
 	// allowed to be displayed while the code is being run.
 	private boolean CURRENTLY_TESTING = false;
 	
+	// (Version 1.1)
+	// Enum to help with formatting of string, this code is originally set up to work
+	// with strings that have spaces between each part of the string. eg "( cos ( sin"
+	// etc. After recent changes the new default format is "(cos (sin". Please read the
+	// provided readme for more information.
+	public enum STRING_SPACING {
+		NONE, OPEN, CLOSE, OPEN_CLOSE
+	}
+	
+	// (Version 1.1)
+	// Private variable which tels the code what kind of string spacing to expect. As
+	// above please read the provided readme for more information.
+	private STRING_SPACING SPACING = STRING_SPACING.NONE;
+	
 	// The following IArithmetic operations are the basis for this code.
 	// ArithmeticNodes are created containing one of the following lambda
 	// operations.
 
 	// The following arithmetics take two inputs.
+	//
+	// (Version 1.1)
+	// - Code changed to match other modules of the program.
+	// - cbrt/cubeRoot option added.
 	private IArithmetic addition = (double[] input) 
 			-> input[0] + input[1];
 	private IArithmetic subtraction = (double[] input) 
@@ -53,6 +75,8 @@ public class ParserInterface {
 			-> input[0] * input[0];
 	private IArithmetic cubed = (double[] input) 
 			-> input[0] * input[0] * input[0];
+	private IArithmetic cubeRoot = (double[] input)
+			-> Math.cbrt(input[0]);
 	private IArithmetic sine = (double[] input)
 			-> Math.sin((input[0] % PI));
 	private IArithmetic cosine = (double[] input) 
@@ -84,6 +108,10 @@ public class ParserInterface {
 	// an ArithmeticNode object that is the root of the Arithmetic tree created.
 	public ArithmeticNode getArithmetic(String initialString) 
 			throws InvalidArgumentException, IncorrectVariablesException {
+		// (Version 1.1)
+		// Formats the string depending on current spacing.
+		initialString = fixString(initialString);
+		
 		// Changes string to lowercase.
 		initialString = initialString.toLowerCase();
 		
@@ -157,6 +185,17 @@ public class ParserInterface {
 				
 				// Checks to see whether first argument is valid and creates
 				// lambda function if it is.
+				
+				if (currentArg.equals("(")) {
+					arrayPosition++;
+					currentArg = stringArray[arrayPosition];
+					
+					if (CURRENTLY_TESTING == true) {
+						System.out.println("\nCurrent Array Position: " + arrayPosition);
+						System.out.println("Current String: " + currentArg);
+					}
+				}
+				
 				try {
 					newFunction = returnValidFunction(currentArg);
 				} catch(InvalidArgumentException e) {
@@ -322,6 +361,32 @@ public class ParserInterface {
 		return firstNode;
 	}
 	
+	// (Version 1.1)
+	// Sets spacing to user requirement.
+	public void setSpacing(STRING_SPACING newSpacing) {
+		this.SPACING = newSpacing;
+	}
+	
+	// (Version 1.1)
+	// This function will format the string so it will be accepted by the code.
+	private String fixString(String currentString) {
+		if (this.SPACING == STRING_SPACING.NONE) {
+			currentString = currentString.replace("(", "( ");
+			currentString = currentString.replace(")", " )");
+		} else if (this.SPACING == STRING_SPACING.OPEN) {
+			currentString = currentString.replace(")", " )");
+		} else if (this.SPACING == STRING_SPACING.CLOSE) {
+			currentString = currentString.replace("(", "( ");
+		}		
+		
+		if (this.CURRENTLY_TESTING == true) {
+			System.out.println("---+++Adding spaces to String+++---");
+			System.out.println("Final String : " + currentString);
+		}
+		
+		return currentString;
+	}
+	
 	// Helper function which returns a random number between RAND_MAX and RAND_MIN.
 	private double randNum() {
 		Random rand = new Random();
@@ -336,17 +401,22 @@ public class ParserInterface {
 	// etc take 2. Returns -1 if it is an invalid argument, but this never
 	// occurs because returnValidFunction will throw an exception before this
 	// happens.
+	//
+	// (Version 1.1)
+	// - Code changed to match other modules of the program.
+	// - cbrt option added.
 	private int returnNumOfArgs(String currentArg) {
 		switch (currentArg) {
 		case "sqrt" :
-		case "square" :
+		case "sqr" :
 		case "cube" :
+		case "cbrt" :
 		case "sin" :
 		case "cos" :
 		case "tan" :
 		case "log" : return 1;
-		case "plus" :
-		case "minus" :
+		case "add" :
+		case "sub" :
 		case "times" :
 		case "div" : 
 		case "mod" : return 2;
@@ -357,18 +427,23 @@ public class ParserInterface {
 	// Takes a string, and checks to see whether it is a valid argument. And
 	// if it is, then it returns the appropriate IArithmetic argument. Throws
 	// and exception if the argument is not valid.
+	//
+	// (Version 1.1)
+	// - Code changed to match other modules of the program.
+	// - cbrt option added.
 	private IArithmetic returnValidFunction(String funcType) 
 			throws InvalidArgumentException {
 		switch (funcType) {
 		case "sqrt" : return this.squareRoot;
-		case "square" : return this.squared;
+		case "sqr" : return this.squared;
 		case "cube" : return this.cubed;
+		case "cbrt" : return this.cubeRoot;
 		case "sin" : return this.sine;
 		case "cos" : return this.cosine;
 		case "tan" : return this.tangent;
 		case "log" : return this.logarithm;
-		case "plus" : return this.addition;
-		case "minus" : return this.subtraction;
+		case "add" : return this.addition;
+		case "sub" : return this.subtraction;
 		case "times" : return this.multiplication;
 		case "div" : return this.division;
 		case "mod" : return this.modulus;
