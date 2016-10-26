@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser v1.1   *
+ * Arithmetic Parser v1.2   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
@@ -15,5 +15,7 @@ public abstract class ParserNode {
 	public ParserNode() {		
 	}
 	
-	public abstract PixelNode operation(PixelNode XPixel, PixelNode YPixel);
+	public abstract double operation(int xValue, int yValue);
+
+	public abstract PixelNode operation(PixelNode xPixel, PixelNode yPixel);
 }

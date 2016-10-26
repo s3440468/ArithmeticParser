@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser v1.1   *
+ * Arithmetic Parser v1.2   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
@@ -100,6 +100,14 @@ public class ArithmeticNode extends ParserNode {
 	
 	public double blueOperation(PixelNode XPixel, PixelNode YPixel) {
 		return this.operation(XPixel, YPixel, COLOR_TYPE.BLUE).getBlueColor();
+	}
+	
+	@Override
+	public double operation(int xValue, int yValue) {
+		PixelNode xPixelValues = new PixelNode(xValue, 0, 0);
+		PixelNode yPixelValues = new PixelNode(yValue, 0, 0);
+		
+		return this.operation(xPixelValues, yPixelValues, COLOR_TYPE.RED).getRedColor();
 	}
 	
 	@Override

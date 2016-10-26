@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser v1.1   *
+ * Arithmetic Parser v1.2   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
@@ -35,7 +35,12 @@ public class DummyNode extends ParserNode {
 
 	// Overriden operation function from ParserNode that is never used.
 	@Override
-	public PixelNode operation(PixelNode XPixel, PixelNode YPixel) {
+	public double operation(int xValue, int yValue) {
+		return -1;
+	}
+	
+	@Override
+	public PixelNode operation(PixelNode xPixel, PixelNode yPixel) {
 		return null;
 	}
 }

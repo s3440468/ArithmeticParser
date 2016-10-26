@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser v1.1   *
+ * Arithmetic Parser v1.2   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
@@ -103,7 +103,7 @@ public class PixelNode extends ParserNode{
 	// positive or negative infinity to their min/max counterparts. No longer
 	// normalizes to between 0 - 255
 	public double fixColor(double color) {
-		if (color == Double.NaN) {
+		if (Double.isNaN(color)) {
 			return 1;
 		} else if (color == Double.NEGATIVE_INFINITY) {
 			return Double.MIN_VALUE;
@@ -120,7 +120,12 @@ public class PixelNode extends ParserNode{
 
 	// This operation function is overriden, but never used for PixelNode
 	@Override
-	public PixelNode operation(PixelNode XPixel, PixelNode YPixel) {
+	public double operation(int xValue, int yValue) {
+		return -1;
+	}
+	
+	@Override
+	public PixelNode operation(PixelNode xPixel, PixelNode yPixel) {
 		return null;
 	}
 	
