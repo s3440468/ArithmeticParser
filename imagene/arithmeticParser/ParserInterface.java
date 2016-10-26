@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser v1.1   *
+ * Arithmetic Parser v1.2   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
@@ -420,8 +420,8 @@ public class ParserInterface {
 		case "cos" :
 		case "tan" :
 		case "log" : return 1;
-		case "add" :
-		case "sub" :
+		case "add" : case "plus" :
+		case "sub" : case "minus" :
 		case "times" :
 		case "div" : 
 		case "mod" : return 2;
@@ -447,8 +447,8 @@ public class ParserInterface {
 		case "cos" : return this.cosine;
 		case "tan" : return this.tangent;
 		case "log" : return this.logarithm;
-		case "add" : return this.addition;
-		case "sub" : return this.subtraction;
+		case "add" : case "plus" : return this.addition;
+		case "sub" : case "minus" : return this.subtraction;
 		case "times" : return this.multiplication;
 		case "div" : return this.division;
 		case "mod" : return this.modulus;

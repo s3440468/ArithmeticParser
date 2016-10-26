@@ -1,6 +1,6 @@
 ************************************************
 * Arithmetic Parser - by Andrew Sanger 3440468 *
-* Version 1.1                                  *
+* Version 1.2                                  *
 *----------------------------------------------*
 *         for Programming Project 1            *
 *                  SP3 2016                    *
@@ -25,7 +25,12 @@ VERSION 1.1 CHANGELOG - 23 October 2016
  - Changed Code to match arithmetic formatting changes in other modules.
  - Changed Parser PixelNode to accept Integers as per Callum's request, although the code
    still returns Doubles (due to returning numbers between 0 and 1)
- - Changed code to allow the random number maximum to be changed.
+   
+VERSION 1.2 CHANGELOG - 26 October 2016
+
+ - Changed Sample Formula Generator to use updated Formulas provided by Dorothea Baker
+ - Changed ArithmeticNode implementation, adding additional operation function which takes
+   two integers as input and returning a double as output.
 
 HOW TO USE - ARITHMETIC PARSER
 ------------------------------
@@ -96,11 +101,8 @@ the following functions:
 		red, green and blue values in X and Y. Returns a PixelNode object containing all three
 		returned red, green and blue values.
 		
-	ArithmeticNode.redOperation(xPixel, yPixel)
-	ArithmeticNode.greenOperation(xPixel, yPixel)
-	ArithmeticNode.blueOperation(xPixel, yPixel) - carries out the contained arithmetic on either
-		the red, green or blue values of the passed X and Y objects. Returns a double value
-		containing colour data.
+	ArithmeticNode.operation(xValue, yValue) - takes two integers as input, and returns a double
+		value as output. 
 
 HOW TO USE - PIXEL NODE
 -----------------------
@@ -113,7 +115,7 @@ pixel node use the following constructor:
 (Version 1.1)
 PixelNode now accepts Integers, as well as Double values.
 	
-The pixelnode automatically changes any values of 0 to 1, this stops errors from occurring. No
+The PixelNode automatically changes any values of 0 to 1, this stops errors from occurring. No
 longer changes negative values to their positive values.
 
 STRING FORMAT
@@ -137,8 +139,8 @@ The string can be of any size. And can consist of the following.
 		log - logarithm
 		
 	2 VARIABLE ARGUMENTS eg (plus x y)
-		add - addition
-		sub - subtraction
+		add/plus - addition
+		sub/minus - subtraction
 		times - multiplication
 		div - division
 		mod - modulus
@@ -161,7 +163,7 @@ To change the string spacing format in the parser, use the setSpacing(STRING_SPA
 
 STRING_SPACING is an enum with 4 different values:
 
-	STRING_SPACING.NONE		- (tan (add (cos y) (sqr pi))) -- CURRENT DEFAULT
-	STRING_SPACING.OPEN		- ( tan ( add ( cos y) ( sqr pi))) -- Open brackets have spaces after
+	STRING_SPACING.NONE			- (tan (add (cos y) (sqr pi))) -- CURRENT DEFAULT
+	STRING_SPACING.OPEN			- ( tan ( add ( cos y) ( sqr pi))) -- Open brackets have spaces after
 	STRING_SPACING.CLOSE		- (tan (add (cos y ) (sqr pi ) ) ) -- Close brackets have spaces before
 	STRING_SPACING.OPEN_CLOSE	- ( tan ( add ( cos y ) ( sqr pi ) ) ) - Original string spacing
