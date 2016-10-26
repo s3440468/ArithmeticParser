@@ -1,5 +1,5 @@
 /****************************
- * Arithmetic Parser v1.1   *
+ * Arithmetic Parser v1.2   *
  *                          *
  * Created by Andrew Sanger *
  * for                      *
